@@ -28,7 +28,7 @@ class LoaiSPController extends Controller
         $product_types = $product_types->orderBy('ten')
                                        ->paginate($this->limit);
 
-        return view("{$this->viewFolder}.list", compact('pageInfo', 'product_types', 'keyword'));
+        return view("admin.{$this->viewFolder}.list", compact('pageInfo', 'product_types', 'keyword'));
     }
 
     public function create() {
@@ -38,7 +38,7 @@ class LoaiSPController extends Controller
             'route'     => $this->viewFolder
         ];
 
-        return view("{$this->viewFolder}.store-edit", compact('pageInfo'));
+        return view("admin.{$this->viewFolder}.store-edit", compact('pageInfo'));
     }
 
     public function store(Request $req) {
@@ -60,7 +60,7 @@ class LoaiSPController extends Controller
             $message = $this->msgStoreSuc;
         }
 
-        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function edit($id) {
@@ -73,13 +73,13 @@ class LoaiSPController extends Controller
         $product_type = LoaiSP::find($id);
 
         if (!empty($product_type)) {
-            return view("{$this->viewFolder}.store-edit", compact('pageInfo', 'product_type'));
+            return view("admin.{$this->viewFolder}.store-edit", compact('pageInfo', 'product_type'));
         }
 
         $status = 'error';
         $message = $this->msgNotFound;
 
-        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function update(Request $req, $id) {
@@ -103,7 +103,7 @@ class LoaiSPController extends Controller
             $message = $this->msgUpdateSuc;
         }
 
-        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function destroy(Request $req) {

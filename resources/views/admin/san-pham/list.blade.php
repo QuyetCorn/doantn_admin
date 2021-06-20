@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('main-content')
 <div class="row">
     <div class="col-12">
@@ -6,10 +6,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <a href="{{ route('nha-san-xuat.create') }}" class="btn btn-success waves-effect waves-light mb-4"><i class="fas fa-plus-square"></i> Thêm mới</a>
+                        <a href="{{ route('san-pham.create') }}" class="btn btn-success waves-effect waves-light mb-4"><i class="fas fa-plus-square"></i> Thêm mới</a>
                     </div>
                     <div class="col-4 form-search">
-                        <form action="{{ route('nha-san-xuat.list') }}" method="GET" id="formSearch" class="app-search mt-0">
+                        <form action="{{ route('san-pham.list') }}" method="GET" id="formSearch" class="app-search mt-0">
                             <div class="form-group mb-0">
                                 <input type="text" name="keyword" id="keyword" class="input-search form-control mr-0" placeholder="Tìm kiếm..." style="position: absolute; right: 0;" @if (isset($keyword)) value="{{ $keyword }}" @endif>
                                 <button type="button" class="close" aria-label="Close">
@@ -23,19 +23,24 @@
                     <table class="table">
                         <thead class="thead-default">
                             <tr>
-                                <th scope="col">@sortablelink('ten', 'Tên', '', ['style' => 'color: black'])</th>
+                                <th scope="col">@sortablelink('ma_sp', 'Mã sản phẩm', '', ['style' => 'color: black'])</th>
+                                <th scope="col">Hình ảnh</th>
                                 <th scope="col">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($manufactures) > 0)
-                                @foreach ($manufactures as $manufacture)
+                            @if (count($products) > 0)
+                                @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $manufacture->ten }}</td>
+                                    <td>{{ $product->ma_sp }}</td>
+                                    <td>
+                                        <img src="{{ $product->anh_sp }}">
+                                    </td>
                                     <td>
                                         <div>
-                                            <a href="{{ route('nha-san-xuat.edit', ['id' => $manufacture->id]) }}" class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-secondary btn-sm waves-effect waves-light btn-delete" data-id="{{ $manufacture->id }}" data-title="{{ $manufacture->ten }}" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('san-pham.edit', ['id' => $product->id]) }}" class="btn btn-warning btn-sm waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa"><i class="fas fa-edit"></i></a>
+                                            <a href="javascript:void(0);" class="btn btn-info btn-sm waves-effect waves-light btn-detail" data-toggle="tooltip" data-placement="top" title="Chi tiết"><i class="fas fa-eye"></i></a>
+                                            <a href="javascript:void(0);" class="btn btn-secondary btn-sm waves-effect waves-light btn-delete" data-id="{{ $product->id }}" data-title="{{ $product->ma_sp }}" data-toggle="tooltip" data-placement="top" title="Xóa"><i class="fas fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -50,24 +55,50 @@
                         </tbody>
                     </table>
                 </div>
-                @if (isset($manufactures))
+                @if (isset($products))
                 <div class="d-flex justify-content-between mt-3">
                     <div style="padding: .5rem .75rem; margin-bottom: 1rem;">
-                        Hiển thị @if ($manufactures->firstItem())
-                            {{ $manufactures->firstItem() }}
+                        Hiển thị @if ($products->firstItem())
+                            {{ $products->firstItem() }}
                         @else
                             0
-                        @endif tới @if ($manufactures->lastItem())
-                            {{ $manufactures->lastItem() }}
+                        @endif tới @if ($products->lastItem())
+                            {{ $products->lastItem() }}
                         @else
                             0
-                        @endif trong {{ $manufactures->total() }} mục
+                        @endif trong {{ $products->total() }} mục
                     </div>
                     <div>
-                        {{ $manufactures->onEachSide(1)->withQueryString()->links() }}
+                        {{ $products->onEachSide(1)->withQueryString()->links() }}
                     </div>
                 </div>
                 @endif
+                <div id="detail" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered dialogExport">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title mt-0">Chi tiết sản phẩm</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Cras mattis consectetur purus sit amet fermentum.
+                                    Cras justo odio, dapibus ac facilisis in,
+                                    egestas eget quam. Morbi leo risus, porta ac
+                                    consectetur ac, vestibulum at eros.</p>
+                                <p>Praesent commodo cursus magna, vel scelerisque
+                                    nisl consectetur et. Vivamus sagittis lacus vel
+                                    augue laoreet rutrum faucibus dolor auctor.</p>
+                                <p>Aenean lacinia bibendum nulla sed consectetur.
+                                    Praesent commodo cursus magna, vel scelerisque
+                                    nisl consectetur et. Donec sed odio dui. Donec
+                                    ullamcorper nulla non metus auctor
+                                    fringilla.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -120,6 +151,11 @@
                 });
             @endif
         @endif
+
+        $('.btn-detail').click(function() {
+            var mId = $(this).data('id');
+            $("#detail").modal('show');
+        });
 
         var inputSearch = $('.input-search');
         var btnClose = $('.close');
@@ -175,7 +211,7 @@
                         });
 
                         $.ajax({
-                            url : "{!! route('nha-san-xuat.delete') !!}",
+                            url : "{!! route('san-pham.delete') !!}",
                             type: "DELETE",
                             data: { id : mId }
                         }).done(function (response) {

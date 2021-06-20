@@ -53,7 +53,7 @@ class KhachHangController extends Controller
         $customers = $customers->orderBy('ten')
                                ->paginate($this->limit);
 
-        return view("{$this->viewFolder}.list", compact('pageInfo', 'customers', 'inputSearch', 'isSearch'));
+        return view("admin.{$this->viewFolder}.list", compact('pageInfo', 'customers', 'inputSearch', 'isSearch'));
     }
 
     public function destroy(Request $req) {
@@ -90,10 +90,10 @@ class KhachHangController extends Controller
                 'mat_khau'  => Hash::make($req->new_pass)
             ]);
 
-            return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
+            return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
         }
 
-        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
+        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
     }
 
     public function lockOrUnlockUser(Request $req) {
