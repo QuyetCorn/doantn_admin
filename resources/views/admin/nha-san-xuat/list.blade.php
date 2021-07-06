@@ -42,9 +42,9 @@
                                 @endforeach
                             @else
                                 @if (!empty($keyword))
-                                    @include('partials.no-data-search')
+                                    @include('admin.partials.no-data-search')
                                 @else
-                                    @include('partials.no-data')
+                                    @include('admin.partials.no-data')
                                 @endif
                             @endif
                         </tbody>
