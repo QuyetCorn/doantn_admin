@@ -89,9 +89,9 @@
                                 @endforeach
                             @else
                                 @if ($isSearch)
-                                    @include('admin.partials.no-data-search')
+                                    @include('partials.no-data-search')
                                 @else
-                                    @include('admin.partials.no-data')
+                                    @include('partials.no-data')
                                 @endif
                             @endif
                         </tbody>

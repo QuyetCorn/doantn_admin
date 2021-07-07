@@ -44,7 +44,7 @@
                                 </tr>
                                 @endforeach
                             @else
-                                @include('admin.partials.no-data')f
+                                @include('partials.no-data')f
                             @endif
                         </tbody>
                     </table>
