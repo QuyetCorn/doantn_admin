@@ -112,7 +112,7 @@ class QuanTriVienController extends Controller
             $message = $this->msgStoreSuc;
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function edit($id) {
@@ -134,7 +134,7 @@ class QuanTriVienController extends Controller
         $status = 'error';
         $message = $this->msgNotFound;
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function update(Request $req, $id) {
@@ -152,7 +152,7 @@ class QuanTriVienController extends Controller
             $message = $this->msgUpdateSuc;
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function destroy(Request $req) {
@@ -226,10 +226,10 @@ class QuanTriVienController extends Controller
                 'mat_khau'  => Hash::make($req->new_pass)
             ]);
 
-            return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
+            return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
     }
 
     public function viewChangePassDetail() {

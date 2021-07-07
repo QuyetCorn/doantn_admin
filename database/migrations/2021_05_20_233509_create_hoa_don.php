@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGioHangTable extends Migration
+class CreateHoaDon extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateGioHangTable extends Migration
      */
     public function up()
     {
-        Schema::create('gio_hang', function (Blueprint $table) {
+        Schema::create('hoa_don', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('khach_hang_id');
-            $table->string('ma_gio_hang');
-            $table->string('tong_tien')->default(0);
+            $table->foreignId('khach_dat_hang_id');
+            $table->double('tong_tien');
+            $table->datetime('ngay_dat');
+            $table->string('ghi_chu', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,6 @@ class CreateGioHangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gio_hang');
+        Schema::dropIfExists('hoa_don');
     }
 }

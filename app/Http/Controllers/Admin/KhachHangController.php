@@ -87,13 +87,13 @@ class KhachHangController extends Controller
             $status = 'success';
 
             $customer->update([
-                'mat_khau'  => Hash::make($req->new_pass)
+                'password'  => Hash::make($req->new_pass)
             ]);
 
-            return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
+            return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassSuc);
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $this->msgChangePassErr);
     }
 
     public function lockOrUnlockUser(Request $req) {

@@ -15,7 +15,7 @@ class AddFieldVaiTroIdOfTableKhachHang extends Migration
     {
         Schema::table('khach_hang', function (Blueprint $table) {
             if (!Schema::hasColumn('khach_hang', 'vai_tro_id')) {
-                $table->unsignedInteger('vai_tro_id')->after('mat_khau');
+                $table->unsignedInteger('vai_tro_id')->after('password');
             }
         });
     }

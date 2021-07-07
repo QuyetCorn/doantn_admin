@@ -12,4 +12,8 @@ class LoaiSP extends Model
 
     protected $table = 'loai_sp';
     protected $fillable = ['ten'];
+
+    public function chitietsanpham() {
+        return $this->hasMany('App\ChiTietSanPham','loai_sp_id','id	');
+    }
 }

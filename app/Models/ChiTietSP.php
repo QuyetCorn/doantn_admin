@@ -11,7 +11,7 @@ class ChiTietSP extends Model
     use SoftDeletes;
 
     protected $table = 'chi_tiet_sp';
-    protected $casts = ['hinh_anh'  => 'json'];
+    // protected $casts = ['hinh_anh'  => 'json'];
     protected $appends = ['anh_chi_tiet_sp'];
     protected $fillable = [
         'san_pham_id',
@@ -41,7 +41,7 @@ class ChiTietSP extends Model
 
     public function nha_san_xuat()
     {
-        return $this->belongsTo(NhaCungCap::class, 'nha_sx_id', 'id')
+        return $this->belongsTo(NhaSanXuat::class, 'nha_sx_id', 'id')
                     ->select('id', 'ten');
     }
 

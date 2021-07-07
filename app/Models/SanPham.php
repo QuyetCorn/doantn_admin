@@ -17,6 +17,18 @@ class SanPham extends Model
         'hinh_anh'
     ];
 
+    public function posts()
+    {
+        return $this->hasManyThrough(
+            'App\ChiTietHoaDon',
+            'App\ChiTietSanPham',
+            'san_pham_id', // khóa ngoại của bảng trung gian
+            'chi_tiet_hoa_don_id', // khóa ngoại của bảng mà chúng ta muốn gọi tới
+            'id', //trường mà chúng ta muốn liên kết ở bảng đang sử dụng
+            'id' // trường mà chúng ta muốn liên kết ở bảng trung gian.
+        );
+    }
+
     public function getAnhSpAttribute() {
         if (empty($this->hinh_anh)) {
             return null;

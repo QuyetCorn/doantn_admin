@@ -60,7 +60,7 @@ class NhaSanXuatController extends Controller
             $message = $this->msgStoreSuc;
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function edit($id) {
@@ -79,7 +79,7 @@ class NhaSanXuatController extends Controller
         $status = 'error';
         $message = $this->msgNotFound;
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function update(Request $req, $id) {
@@ -103,7 +103,7 @@ class NhaSanXuatController extends Controller
             $message = $this->msgUpdateSuc;
         }
 
-        return redirect()->route("admin.{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
+        return redirect()->route("{$this->viewFolder}.list")->with('status', $status)->with('message', $message);
     }
 
     public function destroy(Request $req) {
